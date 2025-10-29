@@ -23,3 +23,5 @@ const val ROUTE_ADD_LASHES="admin_add_lip"
 
 const val ROUTE_ADD_Others="admin_add_others"
 
+const val ROUTE_ADMIN_UPDATE_Eyebrows="admin_update_eyebrows"
+
