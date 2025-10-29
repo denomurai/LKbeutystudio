@@ -15,6 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+
+
+import androidx.compose.foundation.lazy.items
+
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
@@ -56,22 +60,22 @@ fun viewEyebrowsScreen (navController: NavController){
         productViewmodel.fetchEyebrows(context)
     }
 
-    LazyColumn (
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray),
         contentPadding = PaddingValues(vertical = 50.dp, horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
-    ){
-        items(eyebrows){
-                eyebrows ->
+    ) {
+        items(eyebrows) { eyebrow ->
             EyebrowsCard(
-                eyebrows=eyebrows,
-                onDelete ={id -> productViewmodel.deleteEyebrows(id,context)},
+                eyebrows = eyebrow,
+                onDelete = { id -> productViewmodel.deleteEyebrows(id, context) },
                 navController = navController
             )
         }
     }
+
 
 
 }
