@@ -15,6 +15,8 @@ import com.example.myapplication.ui.theme.Screens.adminAddOthers.addOtherService
 import com.example.myapplication.ui.theme.Screens.adminDashboard.adminDashboard
 import com.example.myapplication.ui.theme.Screens.adminUpdateEyebrows.UpdateEyebrows
 import com.example.myapplication.ui.theme.Screens.adminlogin.adminLoginScreen
+import com.example.myapplication.ui.theme.Screens.custBookEyebrows.bookingEyebrowsScreen
+import com.example.myapplication.ui.theme.Screens.custViewEybrows.custViewEybrowsScreen
 import com.example.myapplication.ui.theme.Screens.dashboard.dashBoardScreen
 import com.example.myapplication.ui.theme.Screens.userLogin.userLogin
 import com.example.myapplication.ui.theme.Screens.userRegistration.userRegistration
@@ -30,6 +32,24 @@ fun AppNavHost(
         composable(ROUTE_USER_REGISTER) { userRegistration(navController) }
         composable(ROUTE_USER_LOGIN) { userLogin(navController) }
         composable(ROUTE_DASHBOARD) { dashBoardScreen(navController) }
+        composable(ROUTE_CUST_VEIW_EYEBROS) { custViewEybrowsScreen(navController) }
+
+
+// book eyebrows
+        composable(
+            route = "bookService/{name}/{description}/{amount}",
+            arguments = listOf(
+                navArgument("name") { type = NavType.StringType },
+                navArgument("description") { type = NavType.StringType },
+                navArgument("amount") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val name = backStackEntry.arguments?.getString("name") ?: ""
+            val description = backStackEntry.arguments?.getString("description") ?: ""
+            val amount = backStackEntry.arguments?.getString("amount") ?: ""
+            bookingEyebrowsScreen(navController, name, description, amount)
+        }
+
 
         // 🔹 Admin Routes
         composable(ROUTE_ADMIN_LOGIN) { adminLoginScreen(navController) }

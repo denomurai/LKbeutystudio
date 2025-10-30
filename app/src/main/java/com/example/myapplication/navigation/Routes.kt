@@ -6,6 +6,10 @@ const val ROUTE_USER_LOGIN ="user_Login"
 
 const val ROUTE_DASHBOARD = "dashBoard"
 
+const val ROUTE_BOOK_EYEBROWS ="book_eyebrows"
+
+const val ROUTE_CUST_VEIW_EYEBROS ="cust_view_eyebrows"
+
 
 //Admin ROUTES
 

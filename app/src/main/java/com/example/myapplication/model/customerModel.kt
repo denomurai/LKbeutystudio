@@ -1,6 +1,6 @@
 package com.example.myapplication.model
 
-import android.R
+
 
 data class customerModel(
     val userId: String="",
@@ -8,6 +8,6 @@ data class customerModel(
     val lastname: String = "",
     val email: String="",
     val gender: String ="",
-    val pasword: String=""
+    val password: String=""
 
     )

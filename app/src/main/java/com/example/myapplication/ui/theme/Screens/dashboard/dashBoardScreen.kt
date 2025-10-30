@@ -40,6 +40,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
 import com.example.myapplication.navigation.ROUTE_ADMIN_LOGIN
+import com.example.myapplication.navigation.ROUTE_CUST_VEIW_EYEBROS
 import com.example.myapplication.navigation.ROUTE_USER_LOGIN
 import com.example.myapplication.ui.theme.Screens.userRegistration.userRegistration
 
@@ -86,7 +87,8 @@ fun dashBoardScreen (navController: NavController){
             Text("OUR SERCICES", modifier = Modifier, fontSize = 30.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.width(28.dp))
 
-            Card (modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable{navController.navigate( ROUTE_USER_LOGIN )},
+            Card (modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable{navController.navigate(
+                ROUTE_CUST_VEIW_EYEBROS)},
                 elevation = CardDefaults.cardElevation(10.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color(color = 0xFFB519A0))
