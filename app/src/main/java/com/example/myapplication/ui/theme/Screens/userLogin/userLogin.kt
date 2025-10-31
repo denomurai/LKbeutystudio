@@ -26,23 +26,32 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigator
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
+import com.example.myapplication.navigation.ROUTE_USER_REGISTER
 import com.example.myapplication.ui.theme.Screens.userRegistration.userRegistration
+import com.example.myapplication.viewModel.CustAuthViewModel
 
 @Composable
-fun userLogin (navController: NavController){
+fun userLogin (navController: androidx.navigation.NavController){
+
     var email by remember { mutableStateOf(value = "") }
 
     var password by remember { mutableStateOf(value = "") }
+
+    val custauthviewnodel: CustAuthViewModel = viewModel ()
+
+    val context = LocalContext.current
 
     Column (modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,13 +83,15 @@ fun userLogin (navController: NavController){
         )
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth().height(50.dp),
+        Button(onClick = {custauthviewnodel.login(email = email, password=password, navController =navController, context = context ) }, modifier = Modifier.fillMaxWidth().height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray ))
         {Text(text = "Login", color= Color.White, fontSize = 20.sp) }
 
         Spacer(modifier = Modifier.height(15.dp))
         Text(text = "If not Registered?")
-        Text(text = "Register her", modifier = Modifier.clickable{ },
+        Text(text = "Register her", modifier = Modifier.clickable{navController.navigate(
+            ROUTE_USER_REGISTER
+        ) },
             color = Color.Blue, fontWeight = FontWeight.Bold)
 
 

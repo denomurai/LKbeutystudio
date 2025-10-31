@@ -24,15 +24,24 @@ import com.example.myapplication.ui.theme.Screens.userRegistration.userRegistrat
 @Composable
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUTE_DASHBOARD
+    startDestination: String = ROUTE_USER_LOGIN,
+    openDrawer: (() -> Unit)? = null
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
 
         // 🔹 User Routes
         composable(ROUTE_USER_REGISTER) { userRegistration(navController) }
         composable(ROUTE_USER_LOGIN) { userLogin(navController) }
-        composable(ROUTE_DASHBOARD) { dashBoardScreen(navController) }
+
+        // ✅ Pass openDrawer to dashboard
+        composable(ROUTE_DASHBOARD) {
+            dashBoardScreen(
+                navController = navController,
+                openDrawer = openDrawer
+            )
+        }
         composable(ROUTE_CUST_VEIW_EYEBROS) { custViewEybrowsScreen(navController) }
+
 
 
 // book eyebrows

@@ -7,6 +7,7 @@ data class customerModel(
     val firstname: String="",
     val lastname: String = "",
     val email: String="",
+    val phoneNo: String="",
     val gender: String ="",
     val password: String=""
 

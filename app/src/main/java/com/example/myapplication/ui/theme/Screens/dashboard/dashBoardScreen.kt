@@ -1,5 +1,9 @@
 package com.example.myapplication.ui.theme.Screens.dashboard
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,13 +17,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Person
+
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -46,7 +50,8 @@ import com.example.myapplication.ui.theme.Screens.userRegistration.userRegistrat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun dashBoardScreen (navController: NavController){
+fun dashBoardScreen (  navController: NavController,
+                       openDrawer: (() -> Unit)? = null){
     Scaffold (
         topBar = {
             TopAppBar(
@@ -60,8 +65,10 @@ fun dashBoardScreen (navController: NavController){
 
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(color = +0xff28a9b5), titleContentColor = Color.White)
                 ,
-                actions = {
-                    Icon(Icons.Default.AccountCircle, contentDescription = "Log out", modifier = Modifier.size(40.dp), Color.White)
+                navigationIcon = {
+                    IconButton(onClick = { openDrawer?.invoke() }) {
+                        Icon(Icons.Default.Menu, contentDescription = "Menu")
+                    }
                 })
 
     },
@@ -84,7 +91,7 @@ fun dashBoardScreen (navController: NavController){
     ){innerPadding ->
         Column (modifier = Modifier.fillMaxSize().padding(innerPadding),
             verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("OUR SERCICES", modifier = Modifier, fontSize = 30.sp, fontWeight = FontWeight.Bold)
+            Text("OUR SERVICES", modifier = Modifier, fontSize = 30.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.width(28.dp))
 
             Card (modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable{navController.navigate(
@@ -148,31 +155,41 @@ fun dashBoardScreen (navController: NavController){
                 }
             }//Other Services
 
-
-
-
-
-
-
-
-
             }
-
-
-
-
 
         }
 
+}
 
 
-
-
+@Composable
+fun ServiceCard(title: String, onClick: () -> Unit = {}) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable(onClick = onClick),
+        elevation = CardDefaults.cardElevation(10.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFB519A0))
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(Icons.Default.Person, contentDescription = null, tint = Color(0xFF004D40))
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(title, fontSize = 20.sp, color = Color.White)
+        }
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun dashBoardPreview( ){
-    dashBoardScreen(rememberNavController())
+    /*dashBoardScreen(rememberNavController())*/
 
 }

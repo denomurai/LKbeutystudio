@@ -29,3 +29,11 @@ const val ROUTE_ADD_Others="admin_add_others"
 
 const val ROUTE_ADMIN_UPDATE_Eyebrows="admin_update_eyebrows"
 
+// navigation drawer
+object Routes {
+    const val Login = "login"
+    const val Dashboard = "dashboard"
+    const val EyebrowsService = "eyebrows_service"
+    const val BookingScreen = "book_service/{name}/{desc}/{amount}"
+    const val BookingHistory = "booking_history"
+}

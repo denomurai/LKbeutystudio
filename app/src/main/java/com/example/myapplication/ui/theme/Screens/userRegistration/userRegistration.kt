@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
@@ -18,7 +21,10 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -36,17 +42,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.platform.LocalContext
 
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
+import com.example.myapplication.navigation.ROUTE_USER_LOGIN
+import com.example.myapplication.viewModel.CustAuthViewModel
 import org.intellij.lang.annotations.JdkConstants
 
 
@@ -56,9 +67,16 @@ fun userRegistration (navController: NavController) {
     var firstname by remember { mutableStateOf("") }
     var lastname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var phoneNo by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmpassword by remember { mutableStateOf("") }
+
+    val genderOptions= listOf( "Male", "Female","Others")
+    var expanded by remember { mutableStateOf(false) }
+
+    val custauthviewmodel: CustAuthViewModel= viewModel()
+    val context = LocalContext.current
 
     Scaffold (
         topBar = {
@@ -116,10 +134,49 @@ fun userRegistration (navController: NavController) {
                 leadingIcon = {Icon(Icons.Default.Email, contentDescription = "Email")})
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextField(value = gender,
-                onValueChange = {gender=it},
-                label = {Text("Enter your Gender")},
-                placeholder = {Text("Enter Gender")})
+            OutlinedTextField(
+                value = phoneNo,
+                onValueChange = {phoneNo=it},
+                label = {Text("Enter Phone Number")},
+                placeholder = {Text("ie 07...")},
+                leadingIcon = {Icon(Icons.Default.Email, contentDescription = "phone No")},
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
+            Spacer(modifier = Modifier.height(12.dp))
+
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = {expanded =!expanded},
+                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)
+            ) {
+                OutlinedTextField(
+                    value=gender,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = {Text("Gender")},
+                    placeholder = {Text("Select gender")},
+                    shape = RoundedCornerShape(16.dp),
+
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded)},
+                    modifier = Modifier.menuAnchor().fillMaxWidth()
+
+                )
+
+                ExposedDropdownMenu(
+                    expanded= expanded,
+                    onDismissRequest = {expanded=false}
+                ) {
+                    genderOptions.forEach {
+                            option ->
+                        DropdownMenuItem(
+                            text ={Text(option)},
+                            onClick = {
+                                gender=option
+                                expanded=false
+                            }
+                        )
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(12.dp))
 
             OutlinedTextField(value = password,
@@ -138,11 +195,12 @@ fun userRegistration (navController: NavController) {
                 leadingIcon = {Icon(Icons.Default.Lock, contentDescription = "password")})
             Spacer(modifier = Modifier.height(12.dp))
 
-            Button(onClick = {}, modifier = Modifier.fillMaxWidth().height(50.dp),
+            Button(onClick = {custauthviewmodel.signup(firstname = firstname, lastname = lastname, email = email, phoneNo = phoneNo,gender=gender,password=password, confirmpassword = confirmpassword, navController = navController, context = context)}, modifier = Modifier.fillMaxWidth().height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray ))
             {Text(text = "Register", color= Color.White, fontSize = 25.sp) }
             Text(text = "Already registered?")
-            Text(text = "Login her", modifier = Modifier.clickable{ },
+            Text(text = "Login her", modifier = Modifier.clickable{ navController.navigate(
+                ROUTE_USER_LOGIN)},
                 color = Color.Blue, fontWeight = FontWeight.Bold)
 
 

@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +65,8 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")//Image to firebdase
     implementation("org.json:json:20230227")
+
+    implementation("androidx.compose.material:material-icons-extended:1.7.5")
 
 
 }

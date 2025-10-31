@@ -28,7 +28,7 @@ import com.example.myapplication.model.EyebrowsBooking
 import com.example.myapplication.viewModel.CustBookingViewModel
 
 import androidx.compose.foundation.lazy.items
-
+// sscreen to view customer booking history
 @Composable
 
 fun custBookingScreen(navController: NavController){

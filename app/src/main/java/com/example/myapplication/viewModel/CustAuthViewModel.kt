@@ -13,8 +13,8 @@ import com.google.firebase.database.FirebaseDatabase
 
 class CustAuthViewModel: ViewModel() {
     private val custauth: FirebaseAuth= FirebaseAuth.getInstance()
-    fun signup(firstname: String, lastname: String, email: String,gender:String, password: String, confirmpassword: String, navController: NavController, context: android.content.Context){
-        if (firstname.isBlank() || lastname.isBlank() || email.isBlank()||gender.isBlank() || password.isBlank() || confirmpassword.isBlank()){
+    fun signup(firstname: String, lastname: String, email: String, phoneNo: String, gender:String, password: String, confirmpassword: String, navController: NavController, context: android.content.Context){
+        if (firstname.isBlank() || lastname.isBlank() || email.isBlank()||phoneNo.isBlank()||gender.isBlank() || password.isBlank() || confirmpassword.isBlank()){
             Toast.makeText(context,"Please fill all the fields", Toast.LENGTH_LONG).show()
             return
         }
@@ -25,7 +25,7 @@ class CustAuthViewModel: ViewModel() {
                 task ->
             if(task.isSuccessful){
                 val userId = custauth.currentUser?.uid?:""
-                val customer = customerModel( firstname = firstname, lastname = lastname, email = email,gender=gender, userId = userId)
+                val customer = customerModel( firstname = firstname, lastname = lastname, email = email, phoneNo = phoneNo,gender=gender, userId = userId)
 
                 saveUserToDatabase(customer,navController,context)
             } else{
