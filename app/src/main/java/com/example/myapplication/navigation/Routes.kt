@@ -29,6 +29,13 @@ const val ROUTE_ADD_Others="admin_add_others"
 
 const val ROUTE_ADMIN_UPDATE_Eyebrows="admin_update_eyebrows"
 
+const val ROUTE_ADMIN_VIEW_EYEBROWS = "admin_view_eyebrows"
+
+
+
+
+
+
 // navigation drawer
 object Routes {
     const val Login = "login"
@@ -36,4 +43,8 @@ object Routes {
     const val EyebrowsService = "eyebrows_service"
     const val BookingScreen = "book_service/{name}/{desc}/{amount}"
     const val BookingHistory = "booking_history"
+
+    const val UserRegister = "user_register"
+
+
 }

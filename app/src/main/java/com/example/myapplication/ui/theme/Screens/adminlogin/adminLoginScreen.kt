@@ -52,8 +52,13 @@ fun adminLoginScreen(navController: NavController){
     Column (modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center){
-        Text( text = "ADMIN LOGIN HERE",
-            fontSize = 36.sp,
+        Text( text = "ADMIN ",
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
+        )
+        Text( text = "LOGIN HERE",
+            fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
@@ -92,7 +97,7 @@ fun adminLoginScreen(navController: NavController){
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun userloginPreview(){
+fun adminloginPreview(){
     adminLoginScreen(rememberNavController())
 
 }

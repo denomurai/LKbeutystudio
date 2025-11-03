@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
@@ -90,20 +91,24 @@ fun userRegistration (navController: NavController) {
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(color = +0xff28a9b5), titleContentColor = Color.White)
-                ,
-                actions = {
+
+                /*actions = {
                     Icon(Icons.Default.AccountCircle, contentDescription = "Log out", modifier = Modifier.size(40.dp), Color.White)
-                })
+                }*/)
         },
-                bottomBar = {
-                    NavigationBar(containerColor = Color(color = +0xff28a9b5), )
-                    {
-                        Text("\u00A9 Lk Beauty Studio 2025", modifier = Modifier.padding(16.dp),
-                            color = Color.White,
-                            fontSize = 30.sp
-                            )
-                    }
-                }
+        bottomBar = {
+            BottomAppBar (containerColor = Color(0xff28a9b5)) {
+                Text(
+                    "\u00A9 Lk Beauty Studio 2025",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+            }
+        }
 
 
     ){innerPadding ->
@@ -146,7 +151,7 @@ fun userRegistration (navController: NavController) {
             ExposedDropdownMenuBox(
                 expanded = expanded,
                 onExpandedChange = {expanded =!expanded},
-                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)
+                //modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)
             ) {
                 OutlinedTextField(
                     value=gender,
@@ -157,7 +162,7 @@ fun userRegistration (navController: NavController) {
                     shape = RoundedCornerShape(16.dp),
 
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded)},
-                    modifier = Modifier.menuAnchor().fillMaxWidth()
+                    modifier = Modifier.menuAnchor()
 
                 )
 

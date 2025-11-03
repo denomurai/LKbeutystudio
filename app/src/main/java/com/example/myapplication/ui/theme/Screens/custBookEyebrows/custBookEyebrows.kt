@@ -73,6 +73,8 @@ fun bookingEyebrowsScreen (
         calendar.get(Calendar.MONTH),
         calendar.get(Calendar.DAY_OF_MONTH)
     )
+    datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+
 
     Scaffold(
         topBar = {
@@ -146,17 +148,27 @@ fun bookingEyebrowsScreen (
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Button (
+            Button(
                 onClick = {
-                    eyebrowsBookingViewModel.bookService(
-                        navController,
-                        context = context,
-                        serviceName = serviceName,
-                        serviceDescription = serviceDescription,
-                        amount = amount,
-                        date = selectedDate,
-                        timeSlot = selectedTimeSlot
-                    )
+                    when {
+                        selectedDate.isBlank() -> {
+                            android.widget.Toast.makeText(context, "Please select a date", android.widget.Toast.LENGTH_LONG).show()
+                        }
+                        selectedTimeSlot.isBlank() -> {
+                            android.widget.Toast.makeText(context, "Please select a time slot", android.widget.Toast.LENGTH_LONG).show()
+                        }
+                        else -> {
+                            eyebrowsBookingViewModel.bookService(
+                                navController,
+                                context = context,
+                                serviceName = serviceName,
+                                serviceDescription = serviceDescription,
+                                amount = amount,
+                                date = selectedDate,
+                                timeSlot = selectedTimeSlot
+                            )
+                        }
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB519A0))

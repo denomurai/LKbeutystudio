@@ -26,13 +26,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.myapplication.navigation.AppNavHost
+import com.example.myapplication.navigation.ROUTE_ADMIN_DASHBOARD
+import com.example.myapplication.navigation.ROUTE_ADMIN_LOGIN
 import com.example.myapplication.navigation.Routes
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.ui.theme.Screens.adminlogin.adminLoginScreen
 import com.example.myapplication.ui.theme.Screens.custBookEyebrows.bookingEyebrowsScreen
 import com.example.myapplication.ui.theme.Screens.custBookingScreen.custBookingScreen
 import com.example.myapplication.ui.theme.Screens.custViewEybrows.custViewEybrowsScreen
 import com.example.myapplication.ui.theme.Screens.dashboard.dashBoardScreen
 import com.example.myapplication.ui.theme.Screens.userLogin.userLogin
+import com.example.myapplication.ui.theme.Screens.userRegistration.userRegistration
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -86,39 +90,13 @@ fun MainScreen() {
             }
         }
     ) {
-        // ✅ Pass openDrawer function into AppNavHost
-        AppNavHost(openDrawer = { scope.launch { drawerState.open() } })
-
-        NavHost(
+        AppNavHost(
             navController = navController,
-            startDestination = Routes.Login
-        ) {
-            // ✅ DASHBOARD (Drawer works here)
-            composable(Routes.Dashboard) {
-                dashBoardScreen(
-                    navController = navController,
-                    openDrawer = { scope.launch { drawerState.open() } }
-                )
-            }
+            openDrawer = { scope.launch { drawerState.open() } },
+            scope = scope
+        )
 
-            composable(Routes.EyebrowsService) { custViewEybrowsScreen(navController) }
-            composable(Routes.BookingHistory) { custBookingScreen(navController) }
-            composable(Routes.Login) { userLogin(navController) }
 
-            composable(
-                route = Routes.BookingScreen,
-                arguments = listOf(
-                    navArgument("name") { type = NavType.StringType },
-                    navArgument("desc") { type = NavType.StringType },
-                    navArgument("amount") { type = NavType.StringType }
-                )
-            ) { backStackEntry ->
-                val name = backStackEntry.arguments?.getString("name") ?: ""
-                val desc = backStackEntry.arguments?.getString("desc") ?: ""
-                val amount = backStackEntry.arguments?.getString("amount") ?: ""
-                bookingEyebrowsScreen(navController, name, desc, amount)
-            }
-        }
 
     }
 }

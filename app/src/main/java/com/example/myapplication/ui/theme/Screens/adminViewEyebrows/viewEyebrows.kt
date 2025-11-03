@@ -94,7 +94,7 @@ fun EyebrowsCard(
         AlertDialog(
             onDismissRequest = { showDialog = false },
             title = { Text("Confirm Delete") },
-            text = { Text("Are you sure you want to delete this employee?") },
+            text = { Text("Are you sure you want to delete this eyebrow service?") },
             confirmButton = {
                 TextButton(onClick = {
                     showDialog = false
@@ -159,7 +159,7 @@ fun EyebrowsCard(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        Button(onClick = { navController.navigate("update_employee/${eyebrows.id}") }) {
+                        Button(onClick = { navController.navigate("update_eyebrows/${eyebrows.id}") }) {
                             Text(
                                 text = "Update",
                                 color = MaterialTheme.colorScheme.surface,
